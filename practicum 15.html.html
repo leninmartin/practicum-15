@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Neuralnetics — Adaptive Optical &amp; Cortical Display Modes</title>
+
+  <!-- Early Theme Script (Prevents optical flash on reload) -->
+  <script>
+    (function () {
+      const savedTheme = localStorage.getItem("neuralnetics_optical_mode");
+      const systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      const initialTheme = savedTheme || (systemDark ? "dark" : "light");
+      document.documentElement.setAttribute("data-theme", initialTheme);
+    })();
+  </script>
+
+  <style>
+    /* Clinical Light Mode & Cyber-Dark Neuro-Optic Tokens */
+    :root,
+    [data-theme="light"] {
+      --bg-page: #f1f5f9;
+      --bg-surface: #ffffff;
+      --bg-elevated: #e2e8f0;
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --border-color: #cbd5e1;
+      --accent: #0284c7;
+      --accent-secondary: #7e22ce;
+      --accent-contrast: #ffffff;
+      --shadow: 0 6px 18px rgba(15, 23, 42, 0.08);
+    }
+
+    [data-theme="dark"] {
+      --bg-page: #050811;
+      --bg-surface: #0b1120;
+      --bg-elevated: #070b16;
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --border-color: rgba(56, 189, 248, 0.25);
+      --accent: #38bdf8;
+      --accent-secondary: #a855f7;
+      --accent-contrast: #050811;
+      --shadow: 0 8px 28px rgba(0, 0, 0, 0.6);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: var(--bg-page);
+      color: var(--text-primary);
+      line-height: 1.6;
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+
+    /* Header & Toggle Controls */
+    header {
+      background-color: var(--bg-surface);
+      border-bottom: 1px solid var(--border-color);
+      padding: 1.15rem 1.75rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    header h1 {
+      font-size: clamp(1.15rem, 2.5vw, 1.5rem);
+      letter-spacing: 0.04em;
+      background: linear-gradient(90deg, var(--accent), var(--accent-secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .controls {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      border: 1px solid var(--border-color);
+      border-radius: 999px;
+      padding: 0.5rem 1.05rem;
+      font-family: inherit;
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      transition: background-color 0.2s ease, transform 0.12s ease;
+    }
+
+    .btn:active {
+      transform: scale(0.97);
+    }
+
+    .btn-theme {
+      background: linear-gradient(90deg, #0284c7, #7e22ce);
+      color: #ffffff;
+      border-color: transparent;
+    }
+
+    .btn-reset {
+      background-color: var(--bg-elevated);
+      color: var(--text-primary);
+    }
+
+    /* Main Content Layout */
+    .container {
+      max-width: 960px;
+      margin: 2rem auto;
+      padding: 0 1.25rem;
+    }
+
+    .status-banner {
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-left: 4px solid var(--accent);
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+      margin-bottom: 1.5rem;
+      box-shadow: var(--shadow);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .status-banner span {
+      font-size: 0.92rem;
+      color: var(--text-secondary);
+    }
+
+    .status-banner strong {
+      color: var(--accent);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .card {
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+      transition: background-color 0.25s ease, border-color 0.25s ease;
+    }
+
+    .card:hover {
+      border-color: var(--accent);
+    }
+
+    .card h2 {
+      font-size: 1.1rem;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .card p {
+      font-size: 0.92rem;
+      color: var(--text-secondary);
+    }
+
+    .sample-box {
+      margin-top: 1rem;
+      padding: 0.75rem;
+      border-radius: 8px;
+      background-color: var(--bg-elevated);
+      border: 1px solid var(--border-color);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.8rem;
+      color: var(--text-primary);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Neuralnetics: Adaptive Neuro-Optic Interface</h1>
+
+    <div class="controls">
+      <button type="button" class="btn btn-theme" id="themeToggleBtn" aria-pressed="false">
+        Engage Cyber-Dark Mode
+      </button>
+      <button type="button" class="btn btn-reset" id="resetSystemBtn">
+        Sync Bio-Ambient Sensor
+      </button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="status-banner" aria-live="polite">
+      <span>Optical Spectrum: <strong id="activeThemeLabel">Clinical Light</strong></span>
+      <span>Calibration Source: <strong id="themeSourceLabel">Ambient OS Telemetry</strong></span>
+    </section>
+
+    <section class="grid">
+      <article class="card">
+        <h2>1. Atomic Luminance Tokens</h2>
+        <p>
+          Cortical HUD surfaces, text contrast, and cybernetic borders recalibrate instantaneously via
+          <code>[data-theme]</code> tokens without triggering optical layout jitter.
+        </p>
+        <div class="sample-box">document.documentElement.dataset.theme</div>
+      </article>
+
+      <article class="card">
+        <h2>2. Synaptic Memory Persistence</h2>
+        <p>
+          Manual spectrum overrides commit directly to persistent local memory so cybernetic headsets retain
+          preferred visual polarity across sessions.
+        </p>
+        <div class="sample-box">localStorage.setItem("neuralnetics_optical_mode", mode)</div>
+      </article>
+
+      <article class="card">
+        <h2>3. Ambient Retina Synchronization</h2>
+        <p>
+          Unconfigured interfaces query host ambient luminance via
+          <code>window.matchMedia("(prefers-color-scheme: dark)")</code> and adapt live to environmental light shifts.
+        </p>
+        <div class="sample-box">mediaQuery.addEventListener("change", syncOptics)</div>
+      </article>
+    </section>
+  </main>
+
+  <script>
+    const STORAGE_KEY = "neuralnetics_optical_mode";
+    const themeToggleBtn = document.getElementById("themeToggleBtn");
+    const resetSystemBtn = document.getElementById("resetSystemBtn");
+    const activeThemeLabel = document.getElementById("activeThemeLabel");
+    const themeSourceLabel = document.getElementById("themeSourceLabel");
+    const systemMediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+
+    // Apply Spectrum & Update HUD Labels
+    function applyTheme(theme, sourceText) {
+      document.documentElement.setAttribute("data-theme", theme);
+      const isDark = theme === "dark";
+
+      themeToggleBtn.textContent = isDark ? "Engage Clinical Light Mode" : "Engage Cyber-Dark Mode";
+      themeToggleBtn.setAttribute("aria-pressed", String(isDark));
+      activeThemeLabel.textContent = isDark ? "Cyber-Dark HUD" : "Clinical Lab Light";
+      themeSourceLabel.textContent = sourceText;
+    }
+
+    // Initialize on Load (Saved Override -> Host Ambient Sensor Fallback)
+    function initTheme() {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved === "light" || saved === "dark") {
+        applyTheme(saved, "Manual Cortical Override (localStorage)");
+      } else {
+        const osTheme = systemMediaQuery.matches ? "dark" : "light";
+        applyTheme(osTheme, "Ambient Host Sensor (matchMedia)");
+      }
+    }
+
+    // Manual Spectrum Toggle Handler
+    themeToggleBtn.addEventListener("click", () => {
+      const current = document.documentElement.getAttribute("data-theme");
+      const next = current === "dark" ? "light" : "dark";
+      localStorage.setItem(STORAGE_KEY, next);
+      applyTheme(next, "Manual Cortical Override (localStorage)");
+    });
+
+    // Clear Override & Revert to Ambient Sensor
+    resetSystemBtn.addEventListener("click", () => {
+      localStorage.removeItem(STORAGE_KEY);
+      const osTheme = systemMediaQuery.matches ? "dark" : "light";
+      applyTheme(osTheme, "Ambient Host Sensor (matchMedia)");
+    });
+
+    // Real-time Ambient Luminance Listener
+    systemMediaQuery.addEventListener("change", (e) => {
+      if (!localStorage.getItem(STORAGE_KEY)) {
+        applyTheme(e.matches ? "dark" : "light", "Ambient Host Sensor (Live Sync)");
+      }
+    });
+
+    initTheme();
+  </script>
+</body>
+</html>
